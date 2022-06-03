@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart ES6</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <h1 class="text-center fw-bolder">Shop Online ES6</h1>
+
+    <div class="container mx-auto">
+      <select
+        id="filter"
+        class="form-select mt-4 mb-3"
+        aria-label=".form-select-lg select example"
+        onchange="handleFilter()"
+      >
+        <option selected>All</option>
+        <option value="SamSung">SamSung</option>
+        <option value="Apple">Apple</option>
+      </select>
+    </div>
+
+    <div class="list-product container">
+      <div id="productList" class="row">
+        <!-- <div class="col-sm-4">
+          <div style="margin-top: 20px; margin-bottom: 20px" class="card">
+            <img
+              class="card-img-top"
+              src="https://cdn.tgdd.vn/Products/Images/42/246195/samsung-galaxy-a73-5g-xanh-1.jpg"
+              alt=""
+            />
+            <div class="card-body">
+              <div class="card-title fw-bolder fs-4 text-center">
+                A73 5G 128GB
+              </div>
+              <div style="margin-bottom: 10px" class="card-text text-start">
+                Samsung Galaxy A73 5G 128GB được xem là sản phẩm nổi bật nhất
+                dòng Galaxy A 2022 mới ra mắt, máy trang bị bộ thông số kỹ thuật
+                ấn tượng về phần hiệu năng, chất lượng màn hình và nổi bật nhất
+                trong số đó là camera khi nó đem lại bức ảnh có độ phân giải lên
+                đến 108 MP.
+              </div>
+              <div
+                style="margin: 10px"
+                class="card-text fw-bolder text-center text-danger fs-5"
+              >
+                Price: 11.990.000₫
+              </div>
+              <button
+                style="width: 100%"
+                type="button"
+                class="btn btn-success fw-bold"
+              >
+                Add To Cart
+              </button>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="cart container" style="margin-top: 50px;">
+      <h1
+        style="border-bottom: 2px rgba(0, 0, 0, 0.358) solid; padding: 0 10px"
+        class="text-start fw-bolder"
+      >
+        Cart
+      </h1>
+      <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <img
+                style="width: 80px; height: 80px"
+                src="https://cdn.hoanghamobile.com/i/productlist/dsp/Uploads/2021/04/22/image-removebg-preview_637547045799326930.png"
+                alt=""
+              />
+            </th>
+            <td>Apple iPhone 13 64GB</td>
+            <td>26,990,000 ₫</td>
+            <td>
+              <button type="button" class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+              </button>
+              <span style="padding: 0 12px">1</span>
+              <button type="button" class="btn btn-primary">
+                <i class="fa fa-minus"></i>
+              </button>
+            </td>
+            <td>26,990,000 ₫</td>
+            <td>
+              <button type="button" class="btn btn-danger">
+                <i class="fa fa-times"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+      integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./js/index.js"></script>
+  </body>
+</html>
