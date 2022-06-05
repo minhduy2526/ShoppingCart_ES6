@@ -170,36 +170,40 @@ const renderCartItem = (cart) => {
     let totalPriceOfEachItem = formatNum(
       getTotalPriceOfEachItem(cart[i].price, cart[i].numberOfUnits)
     );
+    if (cart[i].numberOfUnits < 1) {
+      removeItemFromCart(cart[i].id);
+    } else {
+      cartListHTML += `     
+      <tr>
+      <th scope="row">
+        <img
+          src="${cart[i].img}"
+          alt=""
+          width="80px"
+          height="80px"
+        />
+      </th>
+      <td>${cart[i].name}</td>
+      <td>${formattedNum} ₫</td>
+      <td>
+        <button onclick="changeNumberOfUnits('plus', ${cart[i].id})" type="button" class="btn btn-primary">
+          <i class="fa fa-plus"></i>
+        </button>
+        <span style="padding: 0 12px">${cart[i].numberOfUnits}</span>
+        <button onclick="changeNumberOfUnits('minus', ${cart[i].id})" type="button" class="btn btn-primary">
+          <i class="fa fa-minus"></i>
+        </button>
+      </td>
+      <td>${totalPriceOfEachItem} ₫</td>
+      <td>
+        <button onclick="removeItemFromCart(${cart[i].id})" type="button" class="btn btn-danger">
+        <i class="fa fa-times"></i>
+        </button>
+      </td>
+    </tr>
+    `;
+    }
     // console.log(totalPrice);
-    cartListHTML += `     
-    <tr>
-    <th scope="row">
-      <img
-        src="${cart[i].img}"
-        alt=""
-        width="80px"
-        height="80px"
-      />
-    </th>
-    <td>${cart[i].name}</td>
-    <td>${formattedNum} ₫</td>
-    <td>
-      <button onclick="changeNumberOfUnits('plus', ${cart[i].id})" type="button" class="btn btn-primary">
-        <i class="fa fa-plus"></i>
-      </button>
-      <span style="padding: 0 12px">${cart[i].numberOfUnits}</span>
-      <button onclick="changeNumberOfUnits('minus', ${cart[i].id})" type="button" class="btn btn-primary">
-        <i class="fa fa-minus"></i>
-      </button>
-    </td>
-    <td>${totalPriceOfEachItem} ₫</td>
-    <td>
-      <button onclick="removeItemFromCart(${cart[i].id})" type="button" class="btn btn-danger">
-      <i class="fa fa-times"></i>
-      </button>
-    </td>
-  </tr>
-  `;
   }
   document.getElementById("cartList").innerHTML = cartListHTML;
 };
@@ -263,6 +267,6 @@ window.removeItemFromCart = removeItemFromCart;
 const checkOut = () => {
   cart = [];
   updateCart();
-}
+};
 window.checkOut = checkOut;
 updateCart();
