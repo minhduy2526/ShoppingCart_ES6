@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Product Page</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6 mx-auto">
+          <h3 class="display-4 text-center">Manage Product</h3>
+          <form id="formQLSV">
+            <div class="row my-3">
+              <div class="col-6 form-group">
+                <label for="">ID: </label>
+                <input type="text" class="form-control" id="txtID" />
+                <span id="spanID" class="text-danger"></span>
+              </div>
+              <div class="col-6 form-group">
+                <label for="">Product Name: </label>
+                <input type="text" class="form-control" id="txtProductName" />
+                <span id="spanProductName" class="text-danger"></span>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col-6 form-group">
+                <label for="">Screen: </label>
+                <input type="text" class="form-control" id="txtScreen" />
+                <span id="spanScreen" class="text-danger"></span>
+              </div>
+
+              <div class="col-6 form-group">
+                <label for="">Image: </label>
+                <input type="text" class="form-control" id="txtImage" />
+                <span id="spanImage" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-6 form-group">
+                <label for="">Front Camera: </label>
+                <input type="text" class="form-control" id="txtFrontCamera" />
+                <span id="spanFrontCamera" class="text-danger"></span>
+              </div>
+
+              <div class="col-6 form-group">
+                <label for="">Back Camera: </label>
+                <input type="text" class="form-control" id="txtBackCamera" />
+                <span id="spanBackCamera" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-6 form-group">
+                <label for="">Quantity: </label>
+                <input type="number" class="form-control" id="txtQuantity" />
+                <span id="spanQuantity" class="text-danger"></span>
+              </div>
+
+              <div class="col-6 form-group">
+                <label for="">Price: </label>
+                <input type="number" class="form-control" id="txtPrice" />
+                <span id="spanPrice" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-6 form-group">
+                <label for="">Type: </label>
+                <select name="" id="type" class="form-control">
+                  <option value="0">Product Type</option>
+                  <option>Samsung</option>
+                  <option>Iphone</option>
+                </select>
+                <span id="spanType" class="text-danger"></span>
+              </div>
+              <div class="col-6 form-group">
+                <label for="">Description: </label>
+                <textarea
+                  type=""
+                  class="form-control"
+                  id="txtDescription"
+                  placeholder="Enter Description Here...."
+                ></textarea>
+                <span id="spanDescription" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="form-group text-center my-3">
+              <div id="btnCreate">
+                <button
+                  type="button"
+                  onclick="addNewProduct()"
+                  class="btn btn-success"
+                >
+                  Add More Product
+                </button>
+
+                <button type="reset" id="btnReset" class="btn btn-dark">
+                  Reset
+                </button>
+
+                <a class="btn btn-success" href="../index.html">Go To Shopping</a>
+
+              </div>
+              <button
+                id="btnUpdate"
+                onclick="updateProduct()"
+                style="display: none"
+                type="button"
+                class="btn btn-info"
+              >
+                Update
+              </button>
+
+
+            </div>
+          </form>
+        </div>
+        <div class="col-8 mx-auto">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tbodyProduct"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+      integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="../js/manageProduct.js"></script>
+  </body>
+</html>
