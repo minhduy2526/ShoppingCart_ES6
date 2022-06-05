@@ -1,7 +1,6 @@
 import { Product } from "../models/product.js";
 
 let productList = [];
-let cart = [];
 
 const fetchProducts = async () => {
   try {
@@ -115,6 +114,8 @@ window.handleFilter = handleFilter;
 // ---------------------------------------------------------------------------
 //------------------------------------Cart------------------------------------
 
+let cart = JSON.parse(localStorage.getItem("CART")) || [];
+
 const addToCart = (id) => {
   const parseID = parseInt(id);
   if (checkExistedItem(id)) {
@@ -141,6 +142,7 @@ const updateCart = () => {
   renderCartItem(cart);
   renderTotalPrice();
   checkCartEmpty();
+  localStorage.setItem("CART", JSON.stringify(cart));
 };
 
 const checkExistedItem = (id) => {
@@ -251,14 +253,16 @@ const checkCartEmpty = () => {
 checkCartEmpty();
 
 const removeItemFromCart = (id) => {
-  console.log("Cart Before Filter: " + cart);
   cart = cart.filter((item) => {
-    +item.id !== +id;
-    console.log("item id: " + item.id);
-    console.log("id: "+id);
+    return +item.id !== +id;
   });
-  console.log("Cart After Filter: " + cart);
-
   updateCart();
 };
 window.removeItemFromCart = removeItemFromCart;
+
+const checkOut = () => {
+  cart = [];
+  updateCart();
+}
+window.checkOut = checkOut;
+updateCart();
