@@ -69,7 +69,7 @@ const renderProducts = (data) => {
               style="width: 100%"
               type="button"
               class="btn btn-success fw-bold"
-              onclick="${addToCart(data[i].id)}"
+              onclick="addToCart(${data[i].id})"
             >
               Add To Cart
             </button>
@@ -82,7 +82,7 @@ const renderProducts = (data) => {
 
 fetchProducts();
 
-const formatNum = (num) => {  
+const formatNum = (num) => {
   var str = num.toString().split(".");
   str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return str.join(".");
@@ -112,19 +112,153 @@ const handleFilter = () => {
 
 window.handleFilter = handleFilter;
 
+// ---------------------------------------------------------------------------
+//------------------------------------Cart------------------------------------
+
 const addToCart = (id) => {
-  // const item = productList.find((product) => product.id === id);
-  console.log("Hello");
+  const parseID = parseInt(id);
+  if (checkExistedItem(id)) {
+    changeNumberOfUnits("plus", id);
+  } else {
+    for (let i = 0; i < productList.length; i++) {
+      if (+productList[i].id === parseID) {
+        cart.push({
+          ...productList[i],
+          numberOfUnits: 1,
+        });
+      }
+    }
+    updateCart(cart);
+  }
+  // console.log(cart);
 };
 window.addToCart = addToCart;
 
+const updateCart = () => {
+  document.getElementById("warning").innerHTML = ``;
+  document.getElementById("total-checkout").style.display = "block";
+  // console.log("This is update Cart");
+  renderCartItem(cart);
+  renderTotalPrice();
+  checkCartEmpty();
+};
 
-// const findProductByID = (id) => {
-//   for (let i = 0; i < productList.length; i++) {
-//     if (productList[i].id === id) {
-//       return i;
-//     }
-//   }
-//   return -1;
-// };
+const checkExistedItem = (id) => {
+  for (let i = 0; i < cart.length; i++) {
+    if (+cart[i].id === id) {
+      return true;
+    }
+  }
+  return false;
+};
+
+// const countNum
+
+// if (!cart) {
+//   console.log(123);
+//   document.getElementById(
+//     "cartList"
+//   ).innerHTML = `<h1 class="text-center text-danger fs-4">Cart is empty! Let's buy something!</h1>`;
+// }
+const renderCartItem = (cart) => {
+  let cartListHTML = "";
+  for (let i = 0; i < cart.length; i++) {
+    // console.log(cart[i].img);
+    let formattedNum = formatNum(cart[i].price);
+    let totalPriceOfEachItem = formatNum(
+      getTotalPriceOfEachItem(cart[i].price, cart[i].numberOfUnits)
+    );
+    // console.log(totalPrice);
+    cartListHTML += `     
+    <tr>
+    <th scope="row">
+      <img
+        src="${cart[i].img}"
+        alt=""
+        width="80px"
+        height="80px"
+      />
+    </th>
+    <td>${cart[i].name}</td>
+    <td>${formattedNum} ₫</td>
+    <td>
+      <button onclick="changeNumberOfUnits('plus', ${cart[i].id})" type="button" class="btn btn-primary">
+        <i class="fa fa-plus"></i>
+      </button>
+      <span style="padding: 0 12px">${cart[i].numberOfUnits}</span>
+      <button onclick="changeNumberOfUnits('minus', ${cart[i].id})" type="button" class="btn btn-primary">
+        <i class="fa fa-minus"></i>
+      </button>
+    </td>
+    <td>${totalPriceOfEachItem} ₫</td>
+    <td>
+      <button onclick="removeItemFromCart(${cart[i].id})" type="button" class="btn btn-danger">
+      <i class="fa fa-times"></i>
+      </button>
+    </td>
+  </tr>
+  `;
+  }
+  document.getElementById("cartList").innerHTML = cartListHTML;
+};
+
+const getTotalPriceOfEachItem = (unitPrice, quantity) => {
+  let totalPriceOfEachItem = 0;
+  return (totalPriceOfEachItem += +unitPrice * +quantity);
+};
+window.getTotalPriceOfEachItem = getTotalPriceOfEachItem;
+
+const renderTotalPrice = () => {
+  let totalPriceHTML = "";
+  let totalPrice = 0;
+  cart.forEach((item) => {
+    totalPrice += item.price * item.numberOfUnits;
+  });
+  totalPrice = formatNum(totalPrice);
+  totalPriceHTML = `(${totalPrice})`;
+  document.getElementById("total").innerHTML = totalPrice;
+};
+
+const changeNumberOfUnits = (action, id) => {
+  // console.log("This is changeNumberOfUnits");
+  cart = cart.map((item) => {
+    let numberOfUnits = item.numberOfUnits;
+    if (+item.id === id) {
+      if (action === "minus") {
+        numberOfUnits--;
+      } else if (action === "plus") {
+        numberOfUnits++;
+      }
+    }
+    return {
+      ...item,
+      numberOfUnits,
+    };
+  });
+  updateCart();
+};
+window.changeNumberOfUnits = changeNumberOfUnits;
 // document.getElementById("filter").addEventListener("change", handleFilter);
+
+const checkCartEmpty = () => {
+  if (cart.length === 0) {
+    document.getElementById("warning").innerHTML = `
+    <h3 class="my-4 text-danger">Your Cart is empty! Let's buy something first</h3>
+    `;
+    document.getElementById("total-checkout").style.display = "none";
+  }
+};
+checkCartEmpty();
+
+const removeItemFromCart = (id) => {
+  console.log("Cart Before Filter: " + cart);
+  cart = cart.filter((item) => {
+    +item.id !== +id;
+    console.log("item id: " + item.id);
+    console.log("id: "+id);
+  });
+  console.log("Cart After Filter: " + cart);
+
+  updateCart();
+};
+window.removeItemFromCart = removeItemFromCart;

@@ -74,12 +74,12 @@
       </div>
     </div>
 
-    <div class="cart container" style="margin-top: 50px;">
+    <div class="cart container" style="margin-top: 50px">
       <h1
         style="border-bottom: 2px rgba(0, 0, 0, 0.358) solid; padding: 0 10px"
         class="text-start fw-bolder"
       >
-        Cart
+        Your Cart
       </h1>
       <table class="table">
         <thead class="table-light">
@@ -92,46 +92,25 @@
             <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">
-              <img
-                style="width: 80px; height: 80px"
-                src="https://cdn.hoanghamobile.com/i/productlist/dsp/Uploads/2021/04/22/image-removebg-preview_637547045799326930.png"
-                alt=""
-              />
-            </th>
-            <td>Apple iPhone 13 64GB</td>
-            <td>26,990,000 ₫</td>
-            <td>
-              <button type="button" class="btn btn-primary">
-                <i class="fa fa-plus"></i>
-              </button>
-              <span style="padding: 0 12px">1</span>
-              <button type="button" class="btn btn-primary">
-                <i class="fa fa-minus"></i>
-              </button>
-            </td>
-            <td>26,990,000 ₫</td>
-            <td>
-              <button type="button" class="btn btn-danger">
-                <i class="fa fa-times"></i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
+        <tbody id="cartList"></tbody>
       </table>
+      <span class="text-center" id="warning"></span>
+      <div id="total-checkout">
+        <div class="d-flex fw-bolder fs-4">
+          <div class="p-2 flex-grow-1"></div>
+          <div
+            style="display: flex"
+            class="p-2 text-start"
+            style="margin-right: 150px"
+          >
+            <p style="padding: 0 10px">Thành tiền:</p>
+            <span id="total"> </span> ₫
+          </div>
+          <div class="p-2">
+            <button id="checkout" type="button" class="btn btn-primary">Check Out</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script
